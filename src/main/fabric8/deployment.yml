@@ -1,0 +1,18 @@
+spec:
+  template:
+    spec:
+      serviceAccountName: kubernetes-info-webhook
+      containers:
+      - name: spring-boot
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: ${application.port}
+            scheme: HTTPS
+          initialDelaySeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: ${application.port}
+            scheme: HTTPS
+          initialDelaySeconds: 180

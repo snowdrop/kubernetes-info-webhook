@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-info-configuration
+data:
+  application.properties: |
+    k8s.info.enabled=true
