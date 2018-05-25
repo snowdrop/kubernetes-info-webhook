@@ -20,6 +20,6 @@ oc adm policy add-role-to-user view system:serviceaccount:$(oc project -q):kuber
 ## Deployment 
 
 ```bash
-mvn clean compile fabric8:deploy -Popenshift
+./mvnw clean compile fabric8:deploy -Popenshift
 ./create-webhook-configuration.sh
 ```
