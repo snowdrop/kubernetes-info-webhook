@@ -6,10 +6,9 @@ import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.json.JsonTest
 import org.springframework.boot.test.json.JacksonTester
-import org.springframework.core.io.ClassPathResource
 import org.springframework.test.context.junit4.SpringRunner
 
-import static java.nio.file.Files.readAllBytes
+import static me.snowdrop.kubernetes.info.webhook.TestData.exampleAdmissionReviewBytes
 import static org.assertj.core.api.Assertions.assertThat
 
 @RunWith(SpringRunner.class)
@@ -21,7 +20,7 @@ class AdmissionReviewJsonTest {
 
     @Test
     void testDeserialize() {
-        final admissionReview = jacksonTester.parseObject(jsonBytes())
+        final admissionReview = jacksonTester.parseObject(exampleAdmissionReviewBytes())
         assertThat(admissionReview).isNotNull()
         assertThat(admissionReview.request).isNotNull()
         assertThat(admissionReview.request.namespace).isEqualTo("dummy")
@@ -29,9 +28,5 @@ class AdmissionReviewJsonTest {
         assertThat(admissionReview.request.userInfo.username).isEqualTo(
                 "system:serviceaccount:kube-system:replicaset-controller"
         )
-    }
-
-    private byte[] jsonBytes() {
-        return readAllBytes(new ClassPathResource("admission-review.json").getFile().toPath())
     }
 }
