@@ -1,6 +1,6 @@
 package me.snowdrop.kubernetes.info.webhook
 
-import groovy.transform.CompileDynamic
+
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,7 +25,7 @@ class LocalScriptIntegrationTest {
     private TestRestTemplate restTemplate
 
     @Test
-    @CompileDynamic
+
     void testLocalScriptThatDoesNotChangeTheObject() {
         final request = new HttpEntity<>(exampleAdmissionReviewMap())
         final response = restTemplate.exchange("/mutate", HttpMethod.POST, request, Map.class)
@@ -33,6 +33,7 @@ class LocalScriptIntegrationTest {
         assertThat(response.statusCode).isEqualTo(HttpStatus.OK)
         assertThat(response.body).containsKey("response")
         assertThat(response.body.response as Map).containsKey("patch")
-        assertThat(response.body.response.patch as byte[]).isEqualTo(Base64.encoder.encode("[]" as byte[]))
+        assertThat(response.body.response.patch as byte[])
+                .isEqualTo(Base64.encoder.encode("[]" as byte[]))
     }
 }
