@@ -36,7 +36,7 @@ For minishift the following command can be run to enable such capability
 oc new-project k8s-info
 ./create-signed-cert.sh
 ./create-default-configmaps.sh
-oc adm policy add-role-to-user view system:serviceaccount:$(oc project -q):kubernetes-info-webhook -n $(oc project -q)
+./create-service-account.sh
 ```
 
 ## Deployment 

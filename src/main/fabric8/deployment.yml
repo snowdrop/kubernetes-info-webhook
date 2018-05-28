@@ -2,8 +2,31 @@ spec:
   template:
     spec:
       serviceAccountName: kubernetes-info-webhook
+      initContainers:
+      - name: generate-keystore
+        image: geoand/k8s-info-init:latest
+        volumeMounts:
+        - name: keystore
+          mountPath: /etc/certs/tomcat
       containers:
       - name: spring-boot
+        volumeMounts:
+        - name: keystore
+          mountPath: /etc/certs/tomcat
+        env:
+          - name: SERVER_PORT
+            value: ${application.port}
+          - name: SERVER_SSL_ENABLED
+            value: "true"
+          # The keystore is created by the init container - see create-keystore.sh
+          - name: SERVER_SSL_KEY_STORE
+            value: /etc/certs/tomcat/server-ks.pks
+          - name: SERVER_SSL_KEY_STORE_PASSWORD
+            value: tomcat
+          - name: SERVER_SSL_KEY_STORE_TYPE
+            value: PKCS12
+        ports:
+          - containerPort: ${application.port}
         readinessProbe:
           httpGet:
             path: /actuator/health
@@ -16,3 +39,6 @@ spec:
             port: ${application.port}
             scheme: HTTPS
           initialDelaySeconds: 180
+      volumes:
+        - name: keystore
+          emptyDir: {}

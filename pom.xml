@@ -148,31 +148,15 @@
         <artifactId>fabric8-maven-plugin</artifactId>
         <version>3.5.39</version>
         <configuration>
-          <generator>
-            <config>
-              <spring-boot>
-                <webPort>${application.port}</webPort>
-              </spring-boot>
-            </config>
-          </generator>
-          <resources>
-            <env>
-              <SERVER_PORT>${application.port}</SERVER_PORT>
-              <SERVER_SSL_ENABLED>true</SERVER_SSL_ENABLED>
-              <SERVER_SSL_KEY_STORE>classpath:server-ks.pks</SERVER_SSL_KEY_STORE>
-              <SERVER_SSL_KEY_STORE_TYPE>PKCS12</SERVER_SSL_KEY_STORE_TYPE>
-              <SERVER_SSL_KEY_STORE_PASSWORD>tomcat</SERVER_SSL_KEY_STORE_PASSWORD>
-            </env>
-          </resources>
-          <!--<images>-->
-            <!--<image>-->
-              <!--<name>spring-boot</name>-->
-              <!--<build>-->
-                <!--<from>fabric8/s2i-java:latest</from>-->
-                <!--<user>root</user>-->
-              <!--</build>-->
-            <!--</image>-->
-          <!--</images>-->
+          <enricher>
+            <excludes>
+              <exclude>spring-boot-health-check</exclude>
+              <exclude>fmp-git</exclude>
+              <exclude>fmp-pod-annotations</exclude>
+              <exclude>f8-maven-scm</exclude>
+              <exclude>f8-prometheus</exclude>
+            </excludes>
+          </enricher>
         </configuration>
       </plugin>
     </plugins>

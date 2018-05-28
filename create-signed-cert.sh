@@ -122,4 +122,9 @@ if [[ ${serverCert} == '' ]]; then
 fi
 echo ${serverCert} | openssl base64 -d -A -out ${tmpdir}/server-cert.pem
 
-openssl pkcs12 -export -in ${tmpdir}/server-cert.pem -inkey ${tmpdir}/server-key.pem -out src/main/resources/server-ks.pks -passout pass:tomcat
+# create the secret with CA cert and server cert/key
+oc create secret generic ${secret} \
+        --from-file=key=${tmpdir}/server-key.pem \
+        --from-file=cert=${tmpdir}/server-cert.pem \
+        --dry-run -o yaml |
+    oc -n ${namespace} apply -f -
