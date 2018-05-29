@@ -64,3 +64,4 @@ The `create-default-webhook-configuration.sh` will create a default `MutatingWeb
 ## TODO 
 
 * Provide configuration options for scripts 
+* Support filtering using annotations on the target object
