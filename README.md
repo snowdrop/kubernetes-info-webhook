@@ -30,7 +30,7 @@ For minishift the following command can be run to enable such capability
  minishift openshift config set --target master --patch '{ "admissionConfig": { "pluginConfig": { "MutatingAdmissionWebhook": { "configuration": {  "apiVersion": "v1",  "disable": false,  "kind": "DefaultAdmissionConfig" } } } }, "kubernetesMasterConfig": { "controllerArguments": { "cluster-signing-cert-file": [ "ca.crt" ], "cluster-signing-key-file": [ "ca.key" ] } } }'
 ```
 
-## Preparation
+## Preparation (these steps need to be run by an administrator)
 
 ```bash
 oc new-project k8s-info
@@ -39,9 +39,20 @@ oc new-project k8s-info
 ./create-service-account.sh
 ```
 
+These steps will create the following:
+
+* A ServiceAccount named `kubernetes-info-webhook` that contains the `view` and `secret-reader` roles in the `k8s-info` namespace
+* A secret named `kubernetes-info-webhook-certs` that contain the certificate and private key needed for HTTPS communication
+between the application and the cluster.
+This secret is read by an init container when the application runs in order to create the keystore that Tomcat needs to implement for HTTPS 
+* A ConfigMap named `k8s-info-configuration` that contains the application configuration which is read when the application starts
+* A ConfigMap named `k8s-info-mutating-script` that contains the actual script that will mutate the incoming object 
+
 ## Deployment 
 
 ```bash
 ./mvnw clean compile fabric8:deploy -Popenshift
-./create-webhook-configuration.sh
+./create-default-webhook-configuration.sh
 ```
+
+The `create-default-webhook-configuration.sh` will create a default `MutatingWebhookConfiguration`  
