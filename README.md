@@ -63,5 +63,4 @@ The `create-default-webhook-configuration.sh` will create a default `MutatingWeb
 
 ## TODO 
 
-* Fix scripts to work with `kubectl` as well as `oc`
 * Provide configuration options for scripts 
