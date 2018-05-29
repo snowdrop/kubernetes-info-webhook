@@ -1,3 +1,25 @@
+# Purpose 
+
+To make it easier to create / deploy Kubernetes Mutating WebHook applications
+
+## What does the typical Mutating Webhook application look like
+
+The purpose of the mutating webhook is to "mutate" Kubernetes objects.
+Essentially such an application is a normal Kubernetes application (albeit with some requirements that will be mentioned later)
+that is called by Kubernetes under certain conditions.
+
+In order for an application to be a valid Mutating Webhook application the following prerequisites need to be met
+
+* The application needs to be accessible via Kubernetes Service object on port 443
+* The application needs to accept an `AdmissionReview` object and return a new `AdmissionReview` object
+that contains an `AdmissionResponse` whose most important field is the `jsonpatch` that needs to be applied to the 
+incoming object
+* The certificate used by the application for the HTTPS communication (initiated by Kubernetes to the application) needs 
+to be trusted by the cluster
+* A `MutatingWebhookConfiguration` needs to be deployed to the cluster containing configuration of what kind of Requests
+the mutating webhook will handle as well as the certificate `caBundle`
+   
+
 ## Prerequisites
 
 The cluster allows mutating webhooks
