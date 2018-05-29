@@ -42,7 +42,7 @@ oc new-project k8s-info
 These steps will create the following:
 
 * A ServiceAccount named `kubernetes-info-webhook` that contains the `view` and `secret-reader` roles in the `k8s-info` namespace
-* A secret named `kubernetes-info-webhook-certs` that contain the certificate and private key needed for HTTPS communication
+* A secret named `kubernetes-info-webhook` that contain the certificate and private key needed for HTTPS communication
 between the application and the cluster.
 This secret is read by an init container when the application runs in order to create the keystore that Tomcat needs to implement for HTTPS 
 * A ConfigMap named `k8s-info-configuration` that contains the application configuration which is read when the application starts
@@ -55,10 +55,13 @@ This secret is read by an init container when the application runs in order to c
 ./create-default-webhook-configuration.sh
 ```
 
-The `create-default-webhook-configuration.sh` will create a default `MutatingWebhookConfiguration` 
+The `create-default-webhook-configuration.sh` will create a default `MutatingWebhookConfiguration`
+
+## Teardown
+
+./delete-all.sh 
 
 ## TODO 
 
 * Fix scripts to work with `kubectl` as well as `oc`
-* Provide configuration options for scripts
-* Add delete script    
+* Provide configuration options for scripts 

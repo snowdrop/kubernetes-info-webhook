@@ -47,7 +47,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 [ -z ${service} ] && service=kubernetes-info-webhook
-[ -z ${secret} ] && secret=kubernetes-info-webhook-certs
+[ -z ${secret} ] && secret=kubernetes-info-webhook
 [ -z ${namespace} ] && namespace=k8s-info
 
 if [ ! -x "$(command -v openssl)" ]; then
