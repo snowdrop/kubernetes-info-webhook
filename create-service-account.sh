@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-cat <<EOF | oc apply -f -
+source determine-cmd.sh
+
+cat <<EOF | ${cmd} apply -f -
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -11,7 +13,7 @@ rules:
   verbs: ["get", "watch", "list"]
 EOF
 
-cat <<EOF | oc apply -f -
+cat <<EOF | ${cmd} apply -f -
 apiVersion: v1
 kind: ServiceAccount
 metadata:

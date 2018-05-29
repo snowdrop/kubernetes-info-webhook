@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-cat <<EOF | oc apply -f -
+source determine-cmd.sh
+
+cat <<EOF | ${cmd} apply -f -
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -11,7 +13,7 @@ data:
 EOF
 
 
-cat <<EOF | oc apply -f -
+cat <<EOF | ${cmd} apply -f -
 apiVersion: v1
 kind: ConfigMap
 metadata:
