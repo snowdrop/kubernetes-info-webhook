@@ -55,4 +55,10 @@ This secret is read by an init container when the application runs in order to c
 ./create-default-webhook-configuration.sh
 ```
 
-The `create-default-webhook-configuration.sh` will create a default `MutatingWebhookConfiguration`  
+The `create-default-webhook-configuration.sh` will create a default `MutatingWebhookConfiguration` 
+
+## TODO 
+
+* Fix scripts to work with `kubectl` as well as `oc`
+* Provide configuration options for scripts
+* Add delete script    
