@@ -46,7 +46,18 @@ These steps will create the following:
 between the application and the cluster.
 This secret is read by an init container when the application runs in order to create the keystore that Tomcat needs to implement for HTTPS 
 * A ConfigMap named `k8s-info-configuration` that contains the application configuration which is read when the application starts
-* A ConfigMap named `k8s-info-mutating-script` that contains the actual script that will mutate the incoming object 
+* A ConfigMap named `k8s-info-mutating-script` that contains the actual script that will mutate the incoming object
+
+## Configuration
+
+Pay special attention to the values of `policy` and `matchingAnnotation` in [KubernetesInfoProperties](src/main/groovy/me/snowdrop/kubernetes/info/webhook/KubernetesInfoProperties.groovy)
+The values you specify for these fields determine which objects will be mutated
+
+Specifically, if `policy` is enabled, then all objects will be mutated except the ones
+that contain the value of `matchingAnnotation` as an annotation with a value of `disabled`
+
+If it's false, then only objects that contain the value of `matchingAnnotation` as an annotation with a value of `enabled`
+will be mutated
 
 ## Deployment 
 
@@ -64,5 +75,4 @@ The `create-default-webhook-configuration.sh` will create a default `MutatingWeb
 ## TODO 
 
 * Provide configuration options for scripts 
-* Support filtering using annotations on the target object
 * Provide deployment means other than FMP
