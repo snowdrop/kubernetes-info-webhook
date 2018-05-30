@@ -65,3 +65,4 @@ The `create-default-webhook-configuration.sh` will create a default `MutatingWeb
 
 * Provide configuration options for scripts 
 * Support filtering using annotations on the target object
+* Provide deployment means other than FMP
