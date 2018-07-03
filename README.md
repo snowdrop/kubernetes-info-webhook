@@ -30,7 +30,7 @@ For minishift the following command can be run to enable such capability
  minishift openshift config set --target master --patch '{ "admissionConfig": { "pluginConfig": { "MutatingAdmissionWebhook": { "configuration": {  "apiVersion": "v1",  "disable": false,  "kind": "DefaultAdmissionConfig" } } } }, "kubernetesMasterConfig": { "controllerArguments": { "cluster-signing-cert-file": [ "ca.crt" ], "cluster-signing-key-file": [ "ca.key" ] } } }'
 ```
 
-## Preparation (these steps need to be run by a user that is logged in to the cluster as a `cluster-admin` user)
+## Preparation (these steps need to be run by a user that is logged in to the cluster and has the `cluster-admin` role)
 
 ```bash
 oc new-project k8s-info
