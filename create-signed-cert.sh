@@ -119,7 +119,9 @@ for x in $(seq 10); do
 done
 if [[ ${serverCert} == '' ]]; then
     echo "ERROR: After approving csr ${csrName}, the signed certificate did not appear on the resource. Giving up after 10 attempts." >&2
-    echo "See https://istio.io/docs/setup/kubernetes/sidecar-injection.html for more details on troubleshooting." >&2
+    echo "Please make sure that your cluster has been correctly configured to accept mutating webhooks" >&2
+    echo "https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook-beta-in-1-9" >&2
+    echo "https://docs.openshift.org/latest/architecture/additional_concepts/dynamic_admission_controllers.html" >&2
     exit 1
 fi
 echo ${serverCert} | openssl base64 -d -A -out ${tmpdir}/server-cert.pem
