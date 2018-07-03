@@ -64,8 +64,10 @@ data:
 
     private EnvVar createNameValueEnvVar(String name, value) {
         final kubernetesVersionEnvVar = new EnvVar()
+
         kubernetesVersionEnvVar.name = name
         kubernetesVersionEnvVar.value = value
-        kubernetesVersionEnvVar
+
+        return kubernetesVersionEnvVar
     }
 EOF
