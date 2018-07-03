@@ -26,7 +26,6 @@ class LocalScriptNoMutationIntegrationTest {
     private TestRestTemplate restTemplate
 
     @Test
-
     void testLocalScriptThatDoesNotChangeTheObject() {
         final request = new HttpEntity<>(exampleAdmissionReviewMap())
         final response = restTemplate.exchange("/mutate", HttpMethod.POST, request, Map.class)
